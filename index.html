@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.css">
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/javascript/game.js"></script>
 </head>
 <body>
@@ -15,12 +18,37 @@
 </header>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8 mainsection">
-            Main section
+    <div class="row mainrow">
+        <div class="col-sm-6 mainsection">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 id="display"></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-success" onclick="startOver()">Start A New Game</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 letters">
+
+            <button value="A" type="button" class="btn btn-primary" onclick="letterClick(this)">A</button>
+            <button value="B" type="button" class="btn btn-primary" onclick="letterClick(this)">B</button>
+            <button value="C" type="button" class="btn btn-primary" onclick="letterClick(this)">C</button>
+            <button value="D" type="button" class="btn btn-primary" onclick="letterClick(this)">D</button>
+            <button value="E" type="button" class="btn btn-primary" onclick="letterClick(this)">E</button>
+            <button value="F" type="button" class="btn btn-primary" onclick="letterClick(this)">F</button>
+            <button value="G" type="button" class="btn btn-primary" onclick="letterClick(this)">G</button>
+            <button value="H" type="button" class="btn btn-primary" onclick="letterClick(this)">H</button>
+            <button value="I" type="button" class="btn btn-primary" onclick="letterClick(this)">I</button>
+            <button value="J" type="button" class="btn btn-primary" onclick="letterClick(this)">J</button>
+            <button value="K" type="button" class="btn btn-primary" onclick="letterClick(this)">K</button>
+            <button value="L" type="button" class="btn btn-primary" onclick="letterClick(this)">L</button>
+            <button value="O" type="button" class="btn btn-primary" onclick="letterClick(this)">O</button>
         </div>
         <aside class="col-sm-4 rightsection">
-           Right side section
+            Right side section
         </aside>
     </div>
 </div>

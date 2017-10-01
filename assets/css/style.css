@@ -7,6 +7,10 @@ header {
     background-color: #cccccc;
 }
 
+.mainrow {
+    padding: 10px;
+}
+
 .rightsection {
     background-color: #999999;
 }
