@@ -1,3 +1,5 @@
+var gameWords = ["Ghost", "Goblin", "Monster", "Scarecrow", "Haunted House", "Pumpkin"];
+
 var game = {
     gameWord: "",
     displayWord: "",
@@ -22,17 +24,11 @@ var game = {
     }
 };
 
-var displayWord = "";
-
-var gameWords = ["Ghost", "Goblin", "Monster", "Scarecrow", "Haunted House", "Pumpkin"];
-
 function letterClick(btn) {
     // btn.style.backgroundColor = "red";
     console.log("Value of the button: " + btn.value);
     btn.disabled = true;
     game.updateDisplayWord(btn.value);
-
-
 }
 
 function startOver() {
