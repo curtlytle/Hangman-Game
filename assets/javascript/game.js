@@ -1,6 +1,8 @@
-var gameWords = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow", "Haunted House",
+var gamePhrases = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow", "Haunted House",
     "Casper the Ghost", "Count Dracula", "Trick or Treat", "Costume Party", "Witches Brew",
     "The Great Pumpkin", "Bobbing for Apples", "Costume Party"];
+
+var usedPhrases = [];
 
 
 function displayArray(array) {
@@ -64,8 +66,8 @@ function letterClick(btn) {
 
 function startOver() {
     refreshLetters();
-    var wordInd = getRandomInt(0, gameWords.length);
-    game.phraseString = gameWords[wordInd];
+
+    game.phraseString = getUnUsedPhrase();
     game.initializeDisplayWord();
 }
 
@@ -78,6 +80,19 @@ function refreshLetters() {
         btn.disabled = false;
     }
 }
+
+function getUnUsedPhrase() {
+    var wordInd = getRandomInt(0, gamePhrases.length);
+
+    var phrase = gamePhrases[wordInd];
+    for (var i = 0; usedPhrases.indexOf(phrase) > -1; i++) {  // Already used
+        wordInd = getRandomInt(0, gamePhrases.length);
+        phrase = gamePhrases[wordInd];
+    }
+
+    return phrase;
+}
+
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
