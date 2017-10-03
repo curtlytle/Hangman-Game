@@ -90,6 +90,8 @@ function getUnUsedPhrase() {
         phrase = gamePhrases[wordInd];
     }
 
+    usedPhrases.push(phrase);
+
     return phrase;
 }
 
