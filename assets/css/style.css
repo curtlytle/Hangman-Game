@@ -15,6 +15,12 @@ header {
     background-color: #999999;
 }
 
+.letb {
+    width: 35px;
+    height: 35px;
+    margin: 1px;
+}
+
 .footer {
     background: #999999;
     text-align: center;
