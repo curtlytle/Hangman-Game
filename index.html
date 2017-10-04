@@ -27,11 +27,12 @@
                 <div class="col-sm-3">
                     <div id="totalTitle">Hi! Have Fun and Good Luck!</div>
                     <div ><h2 id="gameTotals"></h2></div>
+                    <div ><h4 id="incorrectLetters"></h4></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <button type="button" id="btnStartOver" class="btn btn-success" onclick="startOver()">
+                    <button type="button" id="btnStartOver" class="btn btn-success" onclick="startNewGame()">
                         Start A New Game
                     </button>
                 </div>
@@ -64,6 +65,7 @@
             <button value="X" type="button" class="btn btn-primary letb" onclick="letterClick(this)">X</button>
             <button value="Y" type="button" class="btn btn-primary letb" onclick="letterClick(this)">Y</button>
             <button value="Z" type="button" class="btn btn-primary letb" onclick="letterClick(this)">Z</button>
+            <div>(Click or Type any Letter)</div>
         </div>
         <aside class="col-sm-1 rightsection">
             pic

@@ -1,7 +1,8 @@
 var gamePhrases = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow", "Haunted House",
     "Casper the Ghost", "Count Dracula", "Trick or Treat", "Costume Party", "Witches Brew",
     "The Great Pumpkin", "Bobbing for Apples", "Costume Party", "Scary Movie", "Candy Apple", "The Addams Family",
-    "The Munsters", "The Nightmare Before Christmas", "Candy Corn", "Spider Web", "Skeleton"];
+    "The Munsters", "I got a Rock", "Candy Corn", "Spider Web", "Skeleton", "Frankenstein",
+    "Vampire", "Smashing Pumpkins", "October", "Hocus Pocus", "Creepy", "Zombies", "Scary Stories"];
 
 var gamePhrasesTEST = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow", "Haunted House"];
 
@@ -24,6 +25,7 @@ function displayArray(array) {
 
 var phraseObj = {
     progress: [],
+    incorrect: [],
     answer: []
 };
 
@@ -31,6 +33,7 @@ var game = {
     phraseString: "",
     guessesRemaining: 0,
     gameOver: false,
+    gameStarted: false,
     gamePhrase: phraseObj,
     guessLetter: function (guess) {
         var foundLetter = false;
@@ -43,6 +46,7 @@ var game = {
         }
         if (foundLetter === false) {
             this.guessesRemaining--;
+            this.gamePhrase.incorrect.push(guess);
         }
         if (this.gamePhrase.progress.indexOf("_") < 0) {
             this.gameWon();
@@ -52,6 +56,7 @@ var game = {
             document.getElementById("display").innerHTML = displayArray(this.gamePhrase.progress);
             document.getElementById("totalTitle").innerHTML = "Guesses Remaining: ";
             document.getElementById("gameTotals").innerHTML = this.guessesRemaining;
+            this.displayIncorrectLetters();
         }
     },
     initializeDisplayWord: function () {
@@ -60,6 +65,7 @@ var game = {
         }
         this.gamePhrase.progress = [];
         this.gamePhrase.answer = [];
+        this.gamePhrase.incorrect = [];
         for (var i = 0; i < this.phraseString.length; i++) {
             if (this.phraseString[i] !== ' ') {
                 this.gamePhrase.progress.push("_");
@@ -72,41 +78,71 @@ var game = {
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.progress);
         document.getElementById("totalTitle").innerHTML = "Guesses Remaining: ";
         document.getElementById("gameTotals").innerHTML = this.guessesRemaining;
+        document.getElementById("incorrectLetters").innerHTML = "";
     },
     gameLost: function () {
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.answer);
         document.getElementById("totalTitle").innerHTML = "YOU LOSE!";
         document.getElementById("gameTotals").innerHTML = "Ha Ha Ha!";
+        this.displayIncorrectLetters();
         this.gameOver = true;
+        this.gameStarted = false;
     },
     gameWon: function () {
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.progress);
         document.getElementById("gameTotals").innerHTML = "You WIN!";
         this.gameOver = true;
+        this.gameStarted = false;
+    },
+    displayIncorrectLetters: function () {
+        var ilen = this.gamePhrase.incorrect.length;
+        var output = "";
+        if (ilen > 0) {
+            output += "Incorrect Letters:<br>(";
+        }
+        for (var i = 0; i < ilen; i++) {
+            var letter = this.gamePhrase.incorrect[i];
+            output += letter + " ";
+        }
+        if (ilen > 0) {
+            output += ")";
+        }
+        document.getElementById("incorrectLetters").innerHTML = output;
+    },
+    inGame: function () {
+        if (this.gameStarted === true && this.gameOver === false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 };
 
 function letterClick(btn) {
-    if (game.gameOver === false) {
+    if (game.inGame() === true) {
         btn.disabled = true;
         game.guessLetter(btn.value);
+    } else {
+        document.getElementById("incorrectLetters").innerHTML = "Click Start New Game";
     }
 }
 
 document.onkeyup = function (event) {
-    var userGuess = event.key;
-    var testElements = document.getElementsByClassName('btn-primary');
-    for (var i = 0; i < testElements.length; i++) {
-        var btn = testElements[i];
-        if (btn.value === userGuess.toUpperCase()) {
-            if (btn.disabled === false) {
-                if (game.gameOver === false) {
+    if (game.inGame() === true) {
+        var userGuess = event.key;
+        var testElements = document.getElementsByClassName('btn-primary');
+        for (var i = 0; i < testElements.length; i++) {
+            var btn = testElements[i];
+            if (btn.value === userGuess.toUpperCase()) {
+                if (btn.disabled === false) {
                     btn.disabled = true;
                     game.guessLetter(btn.value);
                 }
+                break;
             }
-            break;
         }
+    } else {
+        document.getElementById("incorrectLetters").innerHTML = "Click Start New Game";
     }
 };
 
@@ -117,10 +153,11 @@ function sessionOver() {
     game.gameOver = true;
 }
 
-function startOver() {
+function startNewGame() {
     refreshLetters();
     game.guessesRemaining = 7;
     game.gameOver = false;
+    game.gameStarted = true;
 
     game.phraseString = getUnUsedPhrase();
     game.initializeDisplayWord();
@@ -137,11 +174,11 @@ function refreshLetters() {
 }
 
 function getUnUsedPhrase() {
-    if (usedPhrases.length === (gamePhrases.length-1)) {
-       sessionOver();
+    if (usedPhrases.length === (gamePhrases.length - 1)) {
+        sessionOver();
     } else {
-        var trimmedPhrases = gamePhrases.filter( function( el ) {
-            return usedPhrases.indexOf( el ) < 0;
+        var trimmedPhrases = gamePhrases.filter(function (el) {
+            return usedPhrases.indexOf(el) < 0;
         });
         var wordInd = getRandomInt(0, trimmedPhrases.length);
         var phrase = trimmedPhrases[wordInd];
