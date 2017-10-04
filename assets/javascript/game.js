@@ -12,7 +12,7 @@ function displayArray(array) {
     var strOut = "";
     for (var i = 0; i < array.length; i++) {
         var element = array[i];
-        if (element == "SPACE") {
+        if (element === "SPACE") {
             strOut += "&nbsp &nbsp";
         } else {
             strOut += element;
@@ -25,7 +25,7 @@ function displayArray(array) {
 var phraseObj = {
     progress: [],
     answer: []
-}
+};
 
 var game = {
     phraseString: "",
@@ -36,17 +36,17 @@ var game = {
         var foundLetter = false;
         for (var i = 0; i < this.gamePhrase.answer.length; i++) {
             var letter = this.gamePhrase.answer[i];
-            if (letter == guess.toUpperCase()) {
+            if (letter === guess.toUpperCase()) {
                 this.gamePhrase.progress[i] = letter;
                 foundLetter = true;
             }
         }
-        if (foundLetter == false) {
+        if (foundLetter === false) {
             this.guessesRemaining--;
         }
         if (this.gamePhrase.progress.indexOf("_") < 0) {
             this.gameWon();
-        } else if (this.guessesRemaining == 0) {
+        } else if (this.guessesRemaining === 0) {
             this.gameLost();
         } else {
             document.getElementById("display").innerHTML = displayArray(this.gamePhrase.progress);
@@ -61,7 +61,7 @@ var game = {
         this.gamePhrase.progress = [];
         this.gamePhrase.answer = [];
         for (var i = 0; i < this.phraseString.length; i++) {
-            if (this.phraseString[i] != ' ') {
+            if (this.phraseString[i] !== ' ') {
                 this.gamePhrase.progress.push("_");
                 this.gamePhrase.answer.push(this.phraseString[i].toUpperCase());
             } else {
@@ -87,7 +87,7 @@ var game = {
 };
 
 function letterClick(btn) {
-    if (game.gameOver == false) {
+    if (game.gameOver === false) {
         btn.disabled = true;
         game.guessLetter(btn.value);
     }
@@ -98,9 +98,9 @@ document.onkeyup = function (event) {
     var testElements = document.getElementsByClassName('btn-primary');
     for (var i = 0; i < testElements.length; i++) {
         var btn = testElements[i];
-        if (btn.value == userGuess.toUpperCase()) {
-            if (!btn.isDisabled) {
-                if (game.gameOver == false) {
+        if (btn.value === userGuess.toUpperCase()) {
+            if (btn.disabled === false) {
+                if (game.gameOver === false) {
                     btn.disabled = true;
                     game.guessLetter(btn.value);
                 }
@@ -137,22 +137,20 @@ function refreshLetters() {
 }
 
 function getUnUsedPhrase() {
-    var wordInd = getRandomInt(0, gamePhrases.length);
-    if (usedPhrases.length == gamePhrases.length) {
+    if (usedPhrases.length === (gamePhrases.length-1)) {
        sessionOver();
     } else {
-        var phrase = gamePhrases[wordInd];
-        for (var i = 0; usedPhrases.indexOf(phrase) > -1; i++) {  // Already used
-            wordInd = getRandomInt(0, gamePhrases.length);
-            phrase = gamePhrases[wordInd];
-        }
+        var trimmedPhrases = gamePhrases.filter( function( el ) {
+            return usedPhrases.indexOf( el ) < 0;
+        });
+        var wordInd = getRandomInt(0, trimmedPhrases.length);
+        var phrase = trimmedPhrases[wordInd];
 
         usedPhrases.push(phrase);
 
         return phrase;
     }
 }
-
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
