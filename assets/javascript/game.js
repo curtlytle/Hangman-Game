@@ -8,6 +8,9 @@ var gamePhrasesTEST = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarec
 
 var usedPhrases = [];
 
+var laughElement = document.createElement("audio");
+laughElement.setAttribute("src", "assets/media/evilLaugh.mp3");
+
 
 function displayArray(array) {
     var strOut = "";
@@ -81,6 +84,7 @@ var game = {
         document.getElementById("incorrectLetters").innerHTML = "";
     },
     gameLost: function () {
+        laughElement.play();
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.answer);
         document.getElementById("totalTitle").innerHTML = "YOU LOSE!";
         document.getElementById("gameTotals").innerHTML = "Ha Ha Ha!";
