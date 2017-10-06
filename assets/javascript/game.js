@@ -80,6 +80,20 @@ var game = {
             this.guessesRemaining--;
             this.gamePhrase.incorrect.push(guess);
             witchesLaugh.play();
+            if (this.guessesRemaining === 5) {
+                document.getElementById("idMain").style.backgroundImage = "url('assets/images/hangmanpic1.jpg')";
+            } else if (this.guessesRemaining === 4) {
+                document.getElementById("idMain").style.backgroundImage = "url('assets/images/hangmanpic2.jpg')";
+            } else if (this.guessesRemaining === 3) {
+                document.getElementById("idMain").style.backgroundImage = "url('assets/images/hangmanpic3.jpg')";
+            } else if (this.guessesRemaining === 2) {
+                document.getElementById("idMain").style.backgroundImage = "url('assets/images/hangmanpic4.jpg')";
+            } else if (this.guessesRemaining === 1) {
+                document.getElementById("idMain").style.backgroundImage = "url('assets/images/hangmanpic5.jpg')";
+            } else if (this.guessesRemaining === 0) {
+                document.getElementById("idMain").style.backgroundImage = "url('assets/images/hangmanpic6.jpg')";
+            }
+
         } else {
             fakeApplause.play();
         }
@@ -241,7 +255,8 @@ function startNewGame() {
 
     game.phraseString = getUnUsedPhrase();
     game.initializeDisplayWord();
-    document.getElementById("btnStartOver").innerHTML = "Start a New Game"
+    document.getElementById("btnStartOver").innerHTML = "Start a New Game";
+    document.getElementById("idMain").style.backgroundImage = "url('assets/images/hangmanpic.jpg')";
 }
 
 function refreshLetters() {

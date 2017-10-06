@@ -4,10 +4,13 @@ header {
     text-align: center;
 }
 
-.mainsection {
+.mainSection {
     /*background-color: #cccccc;*/
-    background-image: url('../images/hangmanpic.jpg');
     height: 630px;
+}
+
+#idMain {
+    background-image: url('../images/hangmanpic.jpg');
 }
 
 .mainrow {
@@ -43,6 +46,9 @@ header {
     background-color: #999999;
 }
 
+.musicbuttons {
+    margin: 20px;
+}
 .letb {
     width: 35px;
     height: 35px;

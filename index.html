@@ -20,7 +20,7 @@
 
 <div class="container">
     <div class="row mainrow">
-        <div class="col-sm-8 mainsection">
+        <div class="col-sm-9 mainSection" id="idMain">
             <div class="row">
                 <div class="col-sm-12">
                     <button type="button" id="btnStartOver" class="btn btn-success" onclick="startNewGame()">
@@ -79,16 +79,19 @@
             <button value="Y" type="button" class="btn btn-primary letb" onclick="letterClick(this)">Y</button>
             <button value="Z" type="button" class="btn btn-primary letb" onclick="letterClick(this)">Z</button>
             <div>(Click or Type any Letter to Guess)</div>
-            <button class="btn btn-warning btn-xs theme-button"><span class="glyphicon glyphicon-music"></span> Play
-                Halloween Song
-            </button>
-            <button class="btn btn-default btn-xs pause-button"><span class="glyphicon glyphicon-pause"></span> Pause
-                Halloween Song
-            </button>
+            <br>
+            <div class="musicbuttons">
+                <button class="btn btn-default btn-xs pause-button"><span class="glyphicon glyphicon-pause"></span>
+                    Pause
+                    Halloween Song
+                </button>
+            </div>
+            <div class="musicbuttons">
+                <button class="btn btn-warning btn-xs theme-button"><span class="glyphicon glyphicon-music"></span> Play
+                    Halloween Song
+                </button>
+            </div>
         </div>
-        <aside class="col-sm-1 rightsection">
-            pic
-        </aside>
     </div>
 </div>
 
