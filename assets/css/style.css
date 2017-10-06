@@ -19,7 +19,15 @@ header {
     padding-left: 75px;
 }
 
-#display, #totalTitle, #incorrectLetters, #gameTotals, #gamesWon, #gamesLost {
+#numberOfWords {
+    padding-left: 20px;
+}
+
+#display {
+    font-size: 32px;
+}
+
+#display, #totalTitle, #incorrectLetters, #gameTotals, #gamesWon, #gamesLost, #numberOfWords {
     color: white;
 }
 

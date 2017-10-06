@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="assets/javascript/game.js"></script>
+
 </head>
 <body>
 <header class="container-fluid">
@@ -35,6 +35,11 @@
                 <div class="col-sm-3">
                     <div id="gamesWon"></div>
                     <div id="gamesLost"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="numberOfWords"></div>
                 </div>
             </div>
             <div class="row">
@@ -73,7 +78,13 @@
             <button value="X" type="button" class="btn btn-primary letb" onclick="letterClick(this)">X</button>
             <button value="Y" type="button" class="btn btn-primary letb" onclick="letterClick(this)">Y</button>
             <button value="Z" type="button" class="btn btn-primary letb" onclick="letterClick(this)">Z</button>
-            <div>(Click or Type any Letter)</div>
+            <div>(Click or Type any Letter to Guess)</div>
+            <button class="btn btn-warning btn-xs theme-button"><span class="glyphicon glyphicon-music"></span> Play
+                Halloween Song
+            </button>
+            <button class="btn btn-default btn-xs pause-button"><span class="glyphicon glyphicon-pause"></span> Pause
+                Halloween Song
+            </button>
         </div>
         <aside class="col-sm-1 rightsection">
             pic
@@ -83,5 +94,7 @@
 
 <div class="footer navbar-fixed-bottom">
 </div>
+
+<script src="assets/javascript/game.js"></script>
 </body>
 </html>

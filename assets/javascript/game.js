@@ -4,7 +4,9 @@ var gamePhrases = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow"
     "The Munsters", "I got a Rock", "Candy Corn", "Spider Web", "Skeleton", "Frankenstein",
     "Vampire", "Smashing Pumpkins", "October", "Hocus Pocus", "Creepy", "Poltergeist", "Zombies",
     "Scary Stories", "Bats", "Jack O Lantern", "Mask", "Black Cat", "Broom", "Full Moon", "Mummy",
-    "Ghouls", "Frighten", "Witches Cauldron", "Costumes", "Bobbing for Apples", "Caramel Apple"];
+    "Ghouls", "Frighten", "Witches Cauldron", "Costumes", "Bobbing for Apples", "Caramel Apple", "Midnight",
+    "All Hallows Eve", "Thriller", "Halloween", "Haunted Mansion", "Salem Witches", "Corpse", "Graveyard",
+    "Tombstone", "Ghost Busters"];
 
 var gamePhrasesTEST = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow", "Haunted House"];
 
@@ -35,7 +37,7 @@ function displayArray(array) {
     for (var i = 0; i < array.length; i++) {
         var element = array[i];
         if (element === "SPACE") {
-            strOut += "&nbsp &nbsp";
+            strOut += "&nbsp; &nbsp;";
         } else {
             strOut += element;
             strOut += " ";
@@ -47,7 +49,8 @@ function displayArray(array) {
 var phraseObj = {
     progress: [],
     incorrect: [],
-    answer: []
+    answer: [],
+    numberOfWords: 0
 };
 
 var gamesWon = 0;
@@ -98,6 +101,7 @@ var game = {
         this.gamePhrase.progress = [];
         this.gamePhrase.answer = [];
         this.gamePhrase.incorrect = [];
+        this.gamePhrase.numberOfWords = 0;
         for (var i = 0; i < this.phraseString.length; i++) {
             if (this.phraseString[i] !== ' ') {
                 this.gamePhrase.progress.push("_");
@@ -105,12 +109,21 @@ var game = {
             } else {
                 this.gamePhrase.progress.push("SPACE");
                 this.gamePhrase.answer.push("SPACE");
+                this.gamePhrase.numberOfWords++;
             }
+        }
+        if (this.phraseString.length > 0) {
+            this.gamePhrase.numberOfWords++;
         }
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.progress);
         document.getElementById("totalTitle").innerHTML = "Guesses Remaining: ";
         document.getElementById("gameTotals").innerHTML = this.guessesRemaining;
         document.getElementById("incorrectLetters").innerHTML = "";
+        if (this.gamePhrase.numberOfWords === 1) {
+            document.getElementById("numberOfWords").innerHTML = "(" + this.gamePhrase.numberOfWords + " Word)";
+        } else {
+            document.getElementById("numberOfWords").innerHTML = "(" + this.gamePhrase.numberOfWords + " Words)";
+        }
     },
     gameLost: function () {
         gamesLost++;
@@ -125,6 +138,7 @@ var game = {
         document.getElementById("totalTitle").innerHTML = "";
         document.getElementById("totalTitle").innerHTML = "YOU LOSE!";
         document.getElementById("gameTotals").innerHTML = "Ha Ha Ha!";
+        document.getElementById("numberOfWords").innerHTML = "";
         this.displayIncorrectLetters();
         this.gameOver = true;
         this.gameStarted = false;
@@ -142,6 +156,7 @@ var game = {
         document.getElementById("totalTitle").innerHTML = "";
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.progress);
         document.getElementById("gameTotals").innerHTML = "You WIN!";
+        document.getElementById("numberOfWords").innerHTML = "";
         this.gameOver = true;
         this.gameStarted = false;
         displayWinsAndLosses();
@@ -179,6 +194,7 @@ function letterClick(btn) {
         document.getElementById("totalTitle").innerHTML = "";
         document.getElementById("gameTotals").innerHTML = "";
         document.getElementById("display").innerHTML = "";
+        document.getElementById("numberOfWords").innerHTML = "";
     }
 }
 
@@ -201,12 +217,17 @@ document.onkeyup = function (event) {
         document.getElementById("totalTitle").innerHTML = "";
         document.getElementById("gameTotals").innerHTML = "";
         document.getElementById("display").innerHTML = "";
+        document.getElementById("numberOfWords").innerHTML = "";
     }
 };
 
 function sessionOver() {
     document.getElementById("display").innerHTML = "There are no more words to guess!";
     document.getElementById("gameTotals").innerHTML = "GAME OVER!";
+    document.getElementById("incorrectLetters").innerHTML = "";
+    document.getElementById("totalTitle").innerHTML = "";
+    document.getElementById("gameTotals").innerHTML = "";
+    document.getElementById("numberOfWords").innerHTML = "";
     document.getElementById("btnStartOver").disabled = true;
     game.gameOver = true;
 }
@@ -225,7 +246,7 @@ function startNewGame() {
 
 function refreshLetters() {
     var testElements = document.getElementsByClassName('btn-primary');
-    console.log("Number of elements: " + testElements.length);
+    // console.log("Number of elements: " + testElements.length);
 
     for (var i = 0; i < testElements.length; i++) {
         var btn = testElements[i];
@@ -254,3 +275,12 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
+
+// Theme Button
+$(".theme-button").on("click", function () {
+    funHalloweenMusic.play();
+});
+
+$(".pause-button").on("click", function () {
+    funHalloweenMusic.pause();
+});
