@@ -22,22 +22,29 @@
     <div class="row mainrow">
         <div class="col-sm-8 mainsection">
             <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" id="btnStartOver" class="btn btn-success" onclick="startNewGame()">
+                        Click to Start the Game
+                    </button>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-9">
                     <h3 id="display"></h3>
                 </div>
                 <div class="col-sm-3">
-                    <div id="totalTitle">Hi! Have Fun and Good Luck!</div>
-                    <div ><h2 id="gameTotals"></h2></div>
-                    <div ><h4 id="incorrectLetters"></h4></div>
+                    <div id="gamesWon"></div>
+                    <div id="gamesLost"></div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
-                    <button type="button" id="btnStartOver" class="btn btn-success" onclick="startNewGame()">
-                        Start A New Game
-                    </button>
+                <div class="col-sm-12 gameprogress">
+                    <div id="totalTitle">Hi! Have Fun and Good Luck!</div>
+                    <div><h2 id="gameTotals"></h2></div>
+                    <div><h4 id="incorrectLetters"></h4></div>
                 </div>
             </div>
+
         </div>
         <div class="col-sm-3 letters">
             <button value="A" type="button" class="btn btn-primary letb" onclick="letterClick(this)">A</button>

@@ -1,14 +1,34 @@
 header {
     background-color: #8a6d3b;
     color: white;
+    text-align: center;
 }
 
 .mainsection {
-    background-color: #cccccc;
+    /*background-color: #cccccc;*/
+    background-image: url('../images/hangmanpic.jpg');
+    height: 630px;
 }
 
 .mainrow {
     padding: 10px;
+}
+
+.gameprogress {
+    padding-top: 20px;
+    padding-left: 75px;
+}
+
+#display, #totalTitle, #incorrectLetters, #gameTotals, #gamesWon, #gamesLost {
+    color: white;
+}
+
+#totalTitle {
+    margin-top: 25px;
+}
+
+#btnStartOver {
+    margin: 10px;
 }
 
 .rightsection {

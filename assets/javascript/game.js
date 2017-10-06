@@ -1,15 +1,33 @@
 var gamePhrases = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow", "Haunted House",
     "Casper the Ghost", "Count Dracula", "Trick or Treat", "Costume Party", "Witches Brew",
-    "The Great Pumpkin", "Bobbing for Apples", "Costume Party", "Scary Movie", "Candy Apple", "The Addams Family",
+    "The Great Pumpkin", "Bobbing for Apples", "Costume Party", "Horror Movie", "Candy Apple", "The Addams Family",
     "The Munsters", "I got a Rock", "Candy Corn", "Spider Web", "Skeleton", "Frankenstein",
-    "Vampire", "Smashing Pumpkins", "October", "Hocus Pocus", "Creepy", "Zombies", "Scary Stories"];
+    "Vampire", "Smashing Pumpkins", "October", "Hocus Pocus", "Creepy", "Poltergeist", "Zombies",
+    "Scary Stories", "Bats", "Jack O Lantern", "Mask", "Black Cat", "Broom", "Full Moon", "Mummy",
+    "Ghouls", "Frighten", "Witches Cauldron", "Costumes", "Bobbing for Apples", "Caramel Apple"];
 
 var gamePhrasesTEST = ["Ghost Town", "Screaming Goblin", "Monster Mash", "Scarecrow", "Haunted House"];
 
 var usedPhrases = [];
 
 var laughElement = document.createElement("audio");
+var fakeApplause = document.createElement("audio");
+var witchesLaugh = document.createElement("audio");
+var sadTrombone = document.createElement("audio");
+var smallEvilLaugh = document.createElement("audio");
+var yay = document.createElement("audio");
+var partyHorn = document.createElement("audio");
+var funHalloweenMusic = document.createElement("audio");
 laughElement.setAttribute("src", "assets/media/evilLaugh.mp3");
+fakeApplause.setAttribute("src", "assets/media/fakeApplause.mp3");
+witchesLaugh.setAttribute("src", "assets/media/witchesLaugh1.mp3");
+sadTrombone.setAttribute("src", "assets/media/sadTrombone.mp3");
+smallEvilLaugh.setAttribute("src", "assets/media/smallEvilLaugh.mp3");
+yay.setAttribute("src", "assets/media/yay.mp3");
+partyHorn.setAttribute("src", "assets/media/partyHorn.mp3");
+funHalloweenMusic.setAttribute("src", "assets/media/funHalloweenMusic.mp3");
+var endLostSound = 0;
+var gameWonSound = 0;
 
 
 function displayArray(array) {
@@ -32,6 +50,14 @@ var phraseObj = {
     answer: []
 };
 
+var gamesWon = 0;
+var gamesLost = 0;
+
+function displayWinsAndLosses() {
+    document.getElementById("gamesWon").innerHTML = "Games Won: " + gamesWon;
+    document.getElementById("gamesLost").innerHTML = "Games Lost: " + gamesLost;
+}
+
 var game = {
     phraseString: "",
     guessesRemaining: 0,
@@ -50,6 +76,9 @@ var game = {
         if (foundLetter === false) {
             this.guessesRemaining--;
             this.gamePhrase.incorrect.push(guess);
+            witchesLaugh.play();
+        } else {
+            fakeApplause.play();
         }
         if (this.gamePhrase.progress.indexOf("_") < 0) {
             this.gameWon();
@@ -84,19 +113,38 @@ var game = {
         document.getElementById("incorrectLetters").innerHTML = "";
     },
     gameLost: function () {
-        laughElement.play();
+        gamesLost++;
+        if (endLostSound === 0) {
+            laughElement.play();
+            endLostSound++;
+        } else {
+            sadTrombone.play();
+            endLostSound = 0;
+        }
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.answer);
+        document.getElementById("totalTitle").innerHTML = "";
         document.getElementById("totalTitle").innerHTML = "YOU LOSE!";
         document.getElementById("gameTotals").innerHTML = "Ha Ha Ha!";
         this.displayIncorrectLetters();
         this.gameOver = true;
         this.gameStarted = false;
+        displayWinsAndLosses();
     },
     gameWon: function () {
+        gamesWon++;
+        if (gameWonSound === 0) {
+            yay.play();
+            gameWonSound++;
+        } else {
+            partyHorn.play();
+            gameWonSound = 0;
+        }
+        document.getElementById("totalTitle").innerHTML = "";
         document.getElementById("display").innerHTML = displayArray(this.gamePhrase.progress);
         document.getElementById("gameTotals").innerHTML = "You WIN!";
         this.gameOver = true;
         this.gameStarted = false;
+        displayWinsAndLosses();
     },
     displayIncorrectLetters: function () {
         var ilen = this.gamePhrase.incorrect.length;
@@ -127,7 +175,10 @@ function letterClick(btn) {
         btn.disabled = true;
         game.guessLetter(btn.value);
     } else {
-        document.getElementById("incorrectLetters").innerHTML = "Click Start New Game";
+        document.getElementById("incorrectLetters").innerHTML = "Click the \"Start a New Game\" button!";
+        document.getElementById("totalTitle").innerHTML = "";
+        document.getElementById("gameTotals").innerHTML = "";
+        document.getElementById("display").innerHTML = "";
     }
 }
 
@@ -146,7 +197,10 @@ document.onkeyup = function (event) {
             }
         }
     } else {
-        document.getElementById("incorrectLetters").innerHTML = "Click Start New Game";
+        document.getElementById("incorrectLetters").innerHTML = "Click the \"Start a New Game\" button!";
+        document.getElementById("totalTitle").innerHTML = "";
+        document.getElementById("gameTotals").innerHTML = "";
+        document.getElementById("display").innerHTML = "";
     }
 };
 
@@ -158,13 +212,15 @@ function sessionOver() {
 }
 
 function startNewGame() {
+    funHalloweenMusic.play();
     refreshLetters();
-    game.guessesRemaining = 7;
+    game.guessesRemaining = 6;
     game.gameOver = false;
     game.gameStarted = true;
 
     game.phraseString = getUnUsedPhrase();
     game.initializeDisplayWord();
+    document.getElementById("btnStartOver").innerHTML = "Start a New Game"
 }
 
 function refreshLetters() {
